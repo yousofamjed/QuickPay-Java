@@ -12,6 +12,7 @@
     <groupId>com.progressoft.training</groupId>
     <artifactId>Payments</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Payments</name>
     <description>Payments</description>
     <url/>
@@ -21,6 +22,10 @@
     <developers>
         <developer/>
     </developers>
+    <modules>
+        <module>Application</module>
+        <module>Domain</module>
+    </modules>
     <scm>
         <connection/>
         <developerConnection/>
