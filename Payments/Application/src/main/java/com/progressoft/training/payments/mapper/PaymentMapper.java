@@ -14,8 +14,6 @@ public interface PaymentMapper {
 
     Payment toDomain(PaymentRequest request);
     PaymentResponse toResponse(Payment payment);
-    PaymentResponse toResponse(PaymentEntity entity);
-    PaymentResponse toResponse(PaymentRequest request);
     PaymentEntity toEntity(Payment payment);
     Payment toDomain(PaymentEntity entity);
 

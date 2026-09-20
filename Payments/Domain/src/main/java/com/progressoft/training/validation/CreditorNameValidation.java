@@ -14,7 +14,7 @@ public class CreditorNameValidation implements Validator<Payment>{
         if (payment.getCreditorName() == null) {
             violations.add(new Violation("creditor Name is null", "creditor Name"));
         } else {
-            if (payment.getCreditorName().isBlank() || payment.getCreditorName().isEmpty()) {
+            if (payment.getCreditorName().isBlank()) {
                 violations.add(new Violation("creditor Name is blank", "creditor Name"));
             }
             if (payment.getCreditorName().length() > 100) {

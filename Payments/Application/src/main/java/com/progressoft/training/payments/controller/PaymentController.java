@@ -27,8 +27,7 @@ public class PaymentController {
     @PostMapping
     public ResponseEntity<PaymentResponse> create(@RequestBody PaymentRequest paymentRequest){
         Payment payment= paymentMapper.toDomain(paymentRequest);
-        PaymentEntity entity = paymentMapper.toEntity(payment);
-        PaymentResponse response = paymentMapper.toResponse(paymentService.save(entity));
+        PaymentResponse response = paymentMapper.toResponse(paymentService.save(payment));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
@@ -49,7 +48,7 @@ public class PaymentController {
     public ResponseEntity<Collection<PaymentResponse>> getAll(){
 
         Collection<Payment> allPaymentEntities = paymentService.getAllPayments();
-        Collection<PaymentResponse> allResponses = allPaymentEntities.stream().map(p->paymentMapper.toResponse(p)).toList();
+        Collection<PaymentResponse> allResponses = allPaymentEntities.stream().map(paymentMapper::toResponse).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(allResponses);
     }

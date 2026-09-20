@@ -1,5 +1,5 @@
 package com.progressoft.training.payments.controller;
-import com.progressoft.training.payments.entity.PaymentEntity;
+import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.mapper.PaymentMapper;
 import com.progressoft.training.payments.resources.PaymentRequest;
 import com.progressoft.training.payments.resources.PaymentResponse;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @WebMvcTest(PaymentController.class)
-class PaymentEntityControllerTest {
+class PaymentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,15 +45,15 @@ class PaymentEntityControllerTest {
 
         ObjectMapper objectMapper1 = new ObjectMapper();
 
-        Mockito.when(paymentMapper.toEntity(saved)).thenReturn(new PaymentEntity());
+        Mockito.when(paymentMapper.toDomain(saved)).thenReturn(new Payment());
 
-        Mockito.when(paymentService.save(Mockito.any())).thenReturn(new PaymentEntity());
+        Mockito.when(paymentService.save(Mockito.any())).thenReturn(new Payment());
 
         PaymentResponse expectedResponse = new PaymentResponse();
         expectedResponse.setId(1L);
         expectedResponse.setAmount(BigDecimal.valueOf(100));
 
-        Mockito.when(paymentMapper.toResponse(Mockito.any())).thenReturn(expectedResponse);
+       // Mockito.when(paymentMapper.toResponse(Mockito.any())).thenReturn(expectedResponse);
 
         mockMvc.perform(post("/api/payments")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -67,7 +67,7 @@ class PaymentEntityControllerTest {
     @Test
     void givenValidId_whenGetPaymentById_thenReturnsCorrectResponse() throws Exception {
 
-        PaymentEntity saved = new PaymentEntity();
+        Payment saved = new Payment();
         saved.setId(1L);
         saved.setAmount(new BigDecimal("100.00"));
 
@@ -77,7 +77,7 @@ class PaymentEntityControllerTest {
         expectedResponse.setId(1L);
         expectedResponse.setAmount(BigDecimal.valueOf(100));
 
-        Mockito.when(paymentMapper.toResponse(Mockito.any())).thenReturn(expectedResponse);
+        //Mockito.when(paymentMapper.toResponse(Mockito.any())).thenReturn(expectedResponse);
 
         mockMvc.perform(get("/api/payments/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -91,7 +91,7 @@ class PaymentEntityControllerTest {
     @Test
     void givenAnInvalidId_whenGetPaymentById_thenReturnsCorrectResponse() throws Exception{
 
-            PaymentEntity saved = new PaymentEntity();
+            Payment saved = new Payment();
             saved.setId(1L);
             saved.setAmount(new BigDecimal("100.00"));
 
@@ -104,15 +104,15 @@ class PaymentEntityControllerTest {
 
     @Test
     void givenAList_whenGetALlPayments_thenReturnsList() throws Exception{
-        PaymentEntity input1 = new PaymentEntity();
+        Payment input1 = new Payment();
         input1.setAmount(new BigDecimal("100.00"));
         input1.setId(1L);
-        PaymentEntity input2 = new PaymentEntity();
+        Payment input2 = new Payment();
         input2.setAmount(new BigDecimal("100.00"));
         input2.setId(1L);
 
 
-        List<PaymentEntity> list = List.of(input1,input2);
+        List<Payment> list = List.of(input1,input2);
 
         Mockito.when(paymentService.getAllPayments()).thenReturn(list);
 

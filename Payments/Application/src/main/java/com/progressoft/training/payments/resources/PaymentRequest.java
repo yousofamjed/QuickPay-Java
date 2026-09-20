@@ -1,13 +1,13 @@
 package com.progressoft.training.payments.resources;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Setter
-@Getter
+@Data
 public class PaymentRequest {
 
 
@@ -17,4 +17,5 @@ public class PaymentRequest {
     private  String currency;
     private  String status;
     private  String notes;
+    private String creditorName;
 }

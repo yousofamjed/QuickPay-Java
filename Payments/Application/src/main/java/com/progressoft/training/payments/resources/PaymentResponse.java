@@ -19,5 +19,6 @@ public class PaymentResponse {
     private  String status;
     private Instant createdAt;
     private  String notes;
+    private  String creditorName;
 
 }

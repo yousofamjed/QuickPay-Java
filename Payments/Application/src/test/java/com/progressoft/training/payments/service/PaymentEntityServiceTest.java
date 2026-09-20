@@ -1,6 +1,9 @@
 package com.progressoft.training.payments.service;
-import com.progressoft.training.payments.entity.PaymentEntity;
+import com.progressoft.training.models.Payment;
+import com.progressoft.training.models.Payment;
+import com.progressoft.training.payments.mapper.PaymentMapper;
 import com.progressoft.training.payments.repository.PaymentRepositoryJpa;
+import com.progressoft.training.repository.PaymentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +21,10 @@ import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-class PaymentEntityServiceTest {
-
+class PaymentServiceTest {
+    PaymentMapper paymentMapper;
     @Mock
-    private PaymentRepositoryJpa paymentRepositoryJpa;
+    private PaymentRepository paymentRepository;
 
     @InjectMocks
     private PaymentService paymentService;
@@ -29,70 +32,70 @@ class PaymentEntityServiceTest {
     @Test
     void givenValidInput_whenCreate_thenShouldReturnSameObject() {
 
-        PaymentEntity input = new PaymentEntity();
+        Payment input = new Payment();
         input.setAmount(new BigDecimal("100.00"));
 
-        PaymentEntity saved = new PaymentEntity();
+        Payment saved = new Payment();
         saved.setId(1L);
         saved.setAmount(new BigDecimal("100.00"));
 
-        Mockito.when(paymentRepositoryJpa.save(input)).thenReturn(saved);
+        Mockito.when(paymentRepository.save(input)).thenReturn(saved);
 
-        PaymentEntity result = paymentService.save(input);
+        Payment result = paymentService.save(input);
 
         assertEquals(1L, result.getId());
 
-        Mockito.verify(paymentRepositoryJpa).save(input);
+        Mockito.verify(paymentRepository).save(input);
     }
 
     @Test
     void givenValidId_whenGetElementsById_thenShouldReturnCorrectObject(){
 
-        PaymentEntity input = new PaymentEntity();
+        Payment input = new Payment();
         input.setAmount(new BigDecimal("100.00"));
         input.setId(1L);
 
-        Mockito.when(paymentRepositoryJpa.findById(1L)).thenReturn(Optional.of(input));
+        Mockito.when(paymentRepository.findBy(1L)).thenReturn(input);
 
-         PaymentEntity byId =paymentService.getBy(1L).get();
+         Payment byId =paymentService.getBy(1L).get();
 
-        Mockito.verify(paymentRepositoryJpa).findById(byId.getId());
+        Mockito.verify(paymentRepository).findBy(byId.getId());
     }
 
     @Test
     void givenInvalidId_whenGetPaymentsByID_then(){
 
-        PaymentEntity input = new PaymentEntity();
+        Payment input = new Payment();
         input.setAmount(new BigDecimal("100.00"));
         input.setId(1L);
 
 
 
-        Mockito.when(paymentRepositoryJpa.findById(2L)).thenReturn(Optional.empty());
+        Mockito.when(paymentRepository.findBy(2L)).thenReturn(input);
 
     Assertions.assertEquals(Optional.empty() ,paymentService.getBy(2L));
 
-    Mockito.verify(paymentRepositoryJpa).findById(2L);
+    Mockito.verify(paymentRepository).findBy(2L);
 
     }
     @Test
     void givenPayments_whenGetAllPayments_thenReturnsAllPayments(){
 
-            PaymentEntity input1 = new PaymentEntity();
+            Payment input1 = new Payment();
             input1.setAmount(new BigDecimal("100.00"));
             input1.setId(1L);
-        PaymentEntity input2 = new PaymentEntity();
+        Payment input2 = new Payment();
         input2.setAmount(new BigDecimal("100.00"));
         input2.setId(1L);
 
 
-        List<PaymentEntity> list = List.of(input1,input2);
+        List<Payment> list = List.of(input1,input2);
 
-            Mockito.when(paymentRepositoryJpa.findAll()).thenReturn(list);
+            Mockito.when(paymentRepository.findAll()).thenReturn(list);
 
             Assertions.assertEquals(list,paymentService.getAllPayments());
 
-            Mockito.verify(paymentRepositoryJpa).findAll();
+            Mockito.verify(paymentRepository).findAll();
 
     }
 

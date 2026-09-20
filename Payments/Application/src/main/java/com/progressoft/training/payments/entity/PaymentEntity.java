@@ -27,6 +27,6 @@ public class PaymentEntity {
     private  String status;
     private  Instant createdAt;
     private  String notes;
-
+    private String creditorName;
 
 }

@@ -4,7 +4,6 @@ package com.progressoft.training.payments.config;
 import com.progressoft.training.models.Payment;
 import com.progressoft.training.repository.PaymentRepository;
 import com.progressoft.training.usecases.CreatePaymentUseCase;
-import com.progressoft.training.validation.Validator;
 import com.progressoft.training.validation.ValidatorChain;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

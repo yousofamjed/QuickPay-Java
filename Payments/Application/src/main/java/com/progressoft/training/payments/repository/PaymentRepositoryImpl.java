@@ -3,10 +3,12 @@ package com.progressoft.training.payments.repository;
 import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.mapper.PaymentMapper;
 import com.progressoft.training.repository.PaymentRepository;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
 
+@Component
 public class PaymentRepositoryImpl implements PaymentRepository {
     private final PaymentRepositoryJpa jpaRepository;
     private final PaymentMapper mapper;
