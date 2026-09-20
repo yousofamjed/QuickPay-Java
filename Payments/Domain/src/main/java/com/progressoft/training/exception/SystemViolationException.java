@@ -8,6 +8,10 @@ public class SystemViolationException extends RuntimeException{ private final Se
 
     public SystemViolationException(Set<Violation> violations) {
 
+        super(violations.stream().map(v -> "[" + v.getViolation() + "]" + v.getMessage())
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("Validation failed"));
+
         this.violations = violations;
     }
 

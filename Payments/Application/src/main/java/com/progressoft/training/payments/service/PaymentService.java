@@ -1,7 +1,10 @@
 package com.progressoft.training.payments.service;
 
+import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.entity.PaymentEntity;
+import com.progressoft.training.payments.mapper.PaymentMapper;
 import com.progressoft.training.payments.repository.PaymentRepositoryJpa;
+import com.progressoft.training.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -9,27 +12,29 @@ import java.util.Optional;
 
 @Service
 public class PaymentService {
+    private final PaymentMapper paymentMapper;
 
-    private  final PaymentRepositoryJpa paymentRepositoryJpa;
+    private  final PaymentRepository paymentRepository;
 
-    public PaymentService(PaymentRepositoryJpa paymentRepositoryJpa) {
-        this.paymentRepositoryJpa = paymentRepositoryJpa;
-    }
-
-
-    public PaymentEntity save(PaymentEntity paymentEntity){
-       return paymentRepositoryJpa.save(paymentEntity);
+    public PaymentService(PaymentMapper paymentMapper,PaymentRepository paymentRepository) {
+        this.paymentMapper = paymentMapper;
+        this.paymentRepository = paymentRepository;
 
     }
 
 
-    public Optional<PaymentEntity> getBy(Long id){
-            return paymentRepositoryJpa.findById(id);
+    public Payment save(Payment payment){
+       return paymentRepository.save(payment);
 
     }
 
-    public Collection<PaymentEntity> getAllPayments(){
-        return paymentRepositoryJpa.findAll();
+    public Optional<Payment> getBy(Long id){
+            return Optional.ofNullable(paymentRepository.findBy(id));
+
+    }
+
+    public Collection<Payment> getAllPayments(){
+        return paymentRepository.findAll().stream().toList();
     }
 
 }

@@ -48,7 +48,7 @@ public class PaymentController {
     @GetMapping
     public ResponseEntity<Collection<PaymentResponse>> getAll(){
 
-        Collection<PaymentEntity> allPaymentEntities = paymentService.getAllPayments();
+        Collection<Payment> allPaymentEntities = paymentService.getAllPayments();
         Collection<PaymentResponse> allResponses = allPaymentEntities.stream().map(p->paymentMapper.toResponse(p)).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(allResponses);
