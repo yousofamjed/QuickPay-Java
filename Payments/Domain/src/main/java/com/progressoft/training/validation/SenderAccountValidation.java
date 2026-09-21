@@ -13,7 +13,7 @@ public class SenderAccountValidation implements Validator<Payment>{
         if (payment.getSenderAccount() == null) {
             violations.add(new Violation("Sender account is null", "Sender account"));
         } else {
-            if (payment.getSenderAccount().isBlank() || payment.getSenderAccount().isEmpty()) {
+            if (payment.getSenderAccount().isBlank() ) {
                 violations.add(new Violation("Sender account is blank", "Sender account"));
             }
             if (payment.getSenderAccount().length() > 34) {

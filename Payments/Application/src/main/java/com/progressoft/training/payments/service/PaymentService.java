@@ -19,7 +19,6 @@ public class PaymentService {
     public PaymentService(PaymentMapper paymentMapper, PaymentRepository paymentRepository, CreatePaymentUseCase createPaymentUseCase) {
         this.paymentMapper = paymentMapper;
         this.paymentRepository = paymentRepository;
-
         this.createPaymentUseCase = createPaymentUseCase;
     }
     public Payment save(Payment payment){
@@ -37,5 +36,3 @@ public class PaymentService {
 
 }
 
-
-//create map struct

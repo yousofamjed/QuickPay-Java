@@ -14,7 +14,7 @@ public class ReceiverAccountValidation implements Validator<Payment>{
         if (payment.getReceiverAccount() == null) {
             violations.add(new Violation("receiver Account is null", "receiver Account"));
         } else {
-            if (payment.getReceiverAccount().isBlank() || payment.getReceiverAccount().isEmpty()) {
+            if (payment.getReceiverAccount().isBlank() ) {
                 violations.add(new Violation("receiver Account is blank", "receiver Account"));
             }
             if (payment.getReceiverAccount().length() > 34) {

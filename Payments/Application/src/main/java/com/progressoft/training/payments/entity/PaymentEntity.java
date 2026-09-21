@@ -17,7 +17,12 @@ import java.time.Instant;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_sequence")
+    @SequenceGenerator(
+            name = "payment_sequence",
+            sequenceName = "payments_sequence",
+            allocationSize = 1
+    )
     private Long id;
 
     private  String senderAccount;
