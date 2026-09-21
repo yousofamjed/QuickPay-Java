@@ -5,7 +5,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <changeSet id="003-create-id-sequence" author="Yousof Alkarameh">
+    <changeSet id="003-create-id-sequence" author="Yousof">
         <createSequence sequenceName="payments_sequence"
                         startValue="1"
                         incrementBy="1"
