@@ -1,10 +1,9 @@
 package com.progressoft.training.payments.service;
+
 import com.progressoft.training.models.Payment;
-import com.progressoft.training.models.Payment;
-import com.progressoft.training.payments.mapper.PaymentMapper;
-import com.progressoft.training.payments.repository.PaymentRepositoryJpa;
 import com.progressoft.training.repository.PaymentRepository;
-import org.junit.jupiter.api.Assertions;
+import com.progressoft.training.usecases.CreatePaymentUseCase;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,96 +11,71 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collections;
+import java.util.Collection;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
-class PaymentServiceTest {
-    PaymentMapper paymentMapper;
+class PaymentEntityServiceTest {
+
     @Mock
     private PaymentRepository paymentRepository;
+
+    @Mock
+    private CreatePaymentUseCase createPaymentUseCase;
 
     @InjectMocks
     private PaymentService paymentService;
 
-    @Test
-    void givenValidInput_whenCreate_thenShouldReturnSameObject() {
+    private Payment payment;
 
-        Payment input = new Payment();
-        input.setAmount(new BigDecimal("100.00"));
-
-        Payment saved = new Payment();
-        saved.setId(1L);
-        saved.setAmount(new BigDecimal("100.00"));
-
-        Mockito.when(paymentRepository.save(input)).thenReturn(saved);
-
-        Payment result = paymentService.save(input);
-
-        assertEquals(1L, result.getId());
-
-        Mockito.verify(paymentRepository).save(input);
+    @BeforeEach
+    void setUp() {
+        payment = new Payment();
     }
 
     @Test
-    void givenValidId_whenGetElementsById_thenShouldReturnCorrectObject(){
+    void givenAValidPayment_whenSave_thenSavesItAndReturnsIt() {
+        when(createPaymentUseCase.execute(payment)).thenReturn(payment);
 
-        Payment input = new Payment();
-        input.setAmount(new BigDecimal("100.00"));
-        input.setId(1L);
+        Payment result = paymentService.save(payment);
 
-        Mockito.when(paymentRepository.findBy(1L)).thenReturn(input);
-
-         Payment byId =paymentService.getBy(1L).get();
-
-        Mockito.verify(paymentRepository).findBy(byId.getId());
+        assertEquals(payment, result);
+        Mockito.verify(createPaymentUseCase).execute(payment);
     }
 
     @Test
-    void givenInvalidId_whenGetPaymentsByID_then(){
+    void givenAValidId_whenGetBY_thenReturnsTheExpectedPayment() {
 
-        Payment input = new Payment();
-        input.setAmount(new BigDecimal("100.00"));
-        input.setId(1L);
+        Long id = 1L;
+        when(paymentRepository.findBy(id)).thenReturn(payment);
 
+        Optional<Payment> result = paymentService.getBy(id);
 
-
-        Mockito.when(paymentRepository.findBy(2L)).thenReturn(input);
-
-    Assertions.assertEquals(Optional.empty() ,paymentService.getBy(2L));
-
-    Mockito.verify(paymentRepository).findBy(2L);
-
+        assertTrue(result.isPresent());
+        assertEquals(payment, result.get());
     }
+
     @Test
-    void givenPayments_whenGetAllPayments_thenReturnsAllPayments(){
+    void givenInvalidId_whenFindBY_ReturnEmptyOptional() {
+        Long id = 1L;
+        when(paymentRepository.findBy(id)).thenReturn(null);
 
-            Payment input1 = new Payment();
-            input1.setAmount(new BigDecimal("100.00"));
-            input1.setId(1L);
-        Payment input2 = new Payment();
-        input2.setAmount(new BigDecimal("100.00"));
-        input2.setId(1L);
+        Optional<Payment> result = paymentService.getBy(id);
 
-
-        List<Payment> list = List.of(input1,input2);
-
-            Mockito.when(paymentRepository.findAll()).thenReturn(list);
-
-            Assertions.assertEquals(list,paymentService.getAllPayments());
-
-            Mockito.verify(paymentRepository).findAll();
-
+        assertFalse(result.isPresent());
     }
 
+    @Test
+    void givenValidPayment_whenFindALl_thenReturnListOfPayments() {
+        when(paymentRepository.findAll()).thenReturn(Collections.singletonList(payment));
 
+        Collection<Payment> result = paymentService.getAllPayments();
 
-
-
-
+        assertEquals(1, result.size());
+        Mockito.verify(paymentRepository).findAll();
+    }
 }

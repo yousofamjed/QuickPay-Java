@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <include file="db/changelog/changes/001-create-payments-table.xml" relativeToChangelogFile="false"/>
+    <include file = "db/changelog/changes/002-edit-notes-length.xml" relativeToChangelogFile="false"/>
+    <include file ="db/changelog/changes/003-create-id-sequence.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/004-edit-creditorname-length.xml" relativeToChangelogFile="false"/>
+    <include file ="db/changelog/changes/005-edit-senderaccountANDreceiveraccount-length.xml" relativeToChangelogFile="false"/>
+</databaseChangeLog>

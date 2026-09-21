@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -35,12 +36,13 @@ public class PaymentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentResponse> getBy(@PathVariable Long id){
+        Optional<Payment> paymentOptional = paymentService.getBy(id);
 
-        if(paymentService.getBy(id).isPresent())
-        return ResponseEntity.status(HttpStatus.OK).body(paymentMapper.toResponse(paymentService.getBy(id).get()));
-        else
+        if(paymentOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(paymentMapper.toResponse(paymentOptional.get()));
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
+        }
 
     }
 
