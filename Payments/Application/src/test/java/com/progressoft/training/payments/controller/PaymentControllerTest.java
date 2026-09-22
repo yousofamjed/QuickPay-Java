@@ -3,12 +3,11 @@ package com.progressoft.training.payments.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.mapper.PaymentMapper;
-import com.progressoft.training.payments.resources.PaymentRequest;
-import com.progressoft.training.payments.resources.PaymentResponse;
+import com.progressoft.training.payments.resources.payment.PaymentRequest;
+import com.progressoft.training.payments.resources.payment.PaymentResponse;
 import com.progressoft.training.payments.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

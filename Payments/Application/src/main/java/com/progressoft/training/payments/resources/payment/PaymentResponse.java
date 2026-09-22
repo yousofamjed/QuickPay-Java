@@ -1,4 +1,4 @@
-package com.progressoft.training.payments.resources;
+package com.progressoft.training.payments.resources.payment;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package com.progressoft.training.payments.repository;
 
 import com.progressoft.training.models.Payment;
+import com.progressoft.training.payments.entity.PaymentEntity;
 import com.progressoft.training.payments.mapper.PaymentMapper;
 import com.progressoft.training.repository.PaymentRepository;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,14 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     @Override
     public Payment findBy(Long id) {
         return mapper.toDomain(jpaRepository.findById(id).isPresent() ? jpaRepository.findById(id).get() : null);
+    }
+
+    @Override
+    public List<Payment> saveAll(List<Payment> validPayments) {
+        List<PaymentEntity> result = validPayments.stream().map(p-> mapper.toEntity(p)).toList();
+
+       return jpaRepository.saveAll(result).stream().map(p-> mapper.toDomain(p)).toList();
+
     }
 
     @Override
