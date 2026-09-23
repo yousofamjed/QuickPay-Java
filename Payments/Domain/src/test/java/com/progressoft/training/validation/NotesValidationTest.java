@@ -16,7 +16,7 @@ class NotesValidationTest {
 
     @BeforeEach
     void setUp() {
-        validation = new NotesValidation();
+        validation = new NotesValidation(300);
         payment = new Payment();
     }
 

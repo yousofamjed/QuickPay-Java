@@ -2,6 +2,7 @@ package com.progressoft.training.payments.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @Table(name = "Payment")
 public class PaymentEntity {

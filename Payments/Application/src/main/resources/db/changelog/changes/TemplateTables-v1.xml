@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <property name="char" value="255"/>
+
+    <changeSet id="TemplateCreation01" author="Yousof Alkarameh">
+        <createTable tableName="Templates">
+            <column name="id"  autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(${char})">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="Templates"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TemplateIdSequence" author="Yousof">
+        <createSequence sequenceName="template_sequence"
+                        startValue="1"
+                        incrementBy="1"
+        />
+
+        <rollback>
+            <dropSequence sequenceName="template_sequence" />
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="TemplateCreation02" author="Yousof Alkarameh">
+        <createTable tableName="template_fields">
+        <column name="template_id" type="BIGINT">
+            <constraints nullable="false" foreignKeyName="fk_template_fields_template_id" references = "Templates(id)"/>
+        </column>
+            <column name="field_order" type= "INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(${char})">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="length" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="template_fields"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

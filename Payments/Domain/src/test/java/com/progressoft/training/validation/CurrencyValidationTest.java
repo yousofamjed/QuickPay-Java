@@ -5,6 +5,7 @@ import com.progressoft.training.models.Violation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +17,7 @@ class CurrencyValidationTest {
 
     @BeforeEach
     void setUp() {
-        validation = new CurrencyValidation();
+        validation = new CurrencyValidation(List.of("USD"));
         payment = new Payment();
     }
 
@@ -41,8 +42,9 @@ class CurrencyValidationTest {
 
     @Test
     void givenValidCUrrency_whenValidate_ShouldReturnEmptyList() {
-        payment.setCurrency("JOD");
+        payment.setCurrency("USD");
         List<Violation> violations = validation.validate(payment);
         assertTrue(violations.isEmpty());
     }
+
 }

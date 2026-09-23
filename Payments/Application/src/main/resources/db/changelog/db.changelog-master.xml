@@ -9,4 +9,5 @@
     <include file ="db/changelog/changes/003-create-id-sequence.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/changes/004-edit-creditorname-length.xml" relativeToChangelogFile="false"/>
     <include file ="db/changelog/changes/005-edit-senderaccountANDreceiveraccount-length.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/TemplateTables-v1.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
