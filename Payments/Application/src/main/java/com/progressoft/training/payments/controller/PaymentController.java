@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentController {
-    @Value("${payment.default-template:default}")
+    @Value("${quickpay.payments.defaultTemplate:default}")
     private  String defaultTemplate;
 
     private final PaymentService paymentService;

@@ -17,7 +17,7 @@ class CurrencyValidationTest {
 
     @BeforeEach
     void setUp() {
-        validation = new CurrencyValidation(new ArrayList<>());
+        validation = new CurrencyValidation(List.of("USD"));
         payment = new Payment();
     }
 
@@ -42,8 +42,9 @@ class CurrencyValidationTest {
 
     @Test
     void givenValidCUrrency_whenValidate_ShouldReturnEmptyList() {
-        payment.setCurrency("JOD");
+        payment.setCurrency("USD");
         List<Violation> violations = validation.validate(payment);
         assertTrue(violations.isEmpty());
     }
+
 }

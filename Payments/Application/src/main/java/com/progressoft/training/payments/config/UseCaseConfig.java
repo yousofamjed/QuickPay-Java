@@ -27,14 +27,16 @@ import java.nio.file.Path;
 @Configuration
 public class UseCaseConfig {
     @Bean
-    @Qualifier("createPaymentValidators")
-    public CreatePaymentUseCase createPaymentUseCase(ValidatorChain<Payment> chain, PaymentRepository paymentRepository) {
+    public CreatePaymentUseCase createPaymentUseCase(  @Qualifier("createPaymentValidators")
+                                                             ValidatorChain<Payment> chain, PaymentRepository paymentRepository) {
         return new CreatePaymentUseCase(chain, paymentRepository);
     }
 
     @Bean
-    public UploadBulkPaymentUseCase uploadBulkPaymentUseCase(ParseFileUseCase<ParsedPayment> parseFileUseCase, ValidatorChain<Payment> chain,
-                                                             PaymentRepository repo, @Value("${payment.persistdb:false}") boolean persistDb ) {
+    public UploadBulkPaymentUseCase uploadBulkPaymentUseCase(ParseFileUseCase<ParsedPayment> parseFileUseCase,
+                                                             @Qualifier("uploadBulkPayment") ValidatorChain<Payment> chain,
+                                                             PaymentRepository repo, @Value("${quickpay.payments.persistDB:false}")
+                                                                 boolean persistDb ) {
         return new UploadBulkPaymentUseCase(parseFileUseCase, chain, repo, persistDb);
     }
 
@@ -67,6 +69,8 @@ public class UseCaseConfig {
 
     @Bean
     public JsonTemplateRepository jsonTemplateRepository() throws IOException, URISyntaxException {
+
+
         URL resource = getClass().getClassLoader().getResource("template/DefaultTemplate.json");
         return new JsonTemplateRepository(Path.of(resource.toURI()));
     }
@@ -78,11 +82,6 @@ public class UseCaseConfig {
     @Bean
     public CreateTemplateUseCase createTemplateUseCase(TemplateRepositoryImpl templateRepository) {
         return new CreateTemplateUseCase(templateRepository);
-    }
-
-    @Bean
-    public ListTemplatesUseCase listTemplatesUseCase(TemplateRepositoryImpl templateRepository){
-        return new ListTemplatesUseCase(templateRepository);
     }
 
     @Bean

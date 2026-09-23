@@ -18,8 +18,6 @@ public interface TemplateMapper {
     List<Template> toDomain(List<TemplateEntity> templateEntities);
 
     Template toDomain(TemplateRequest templateRequest);
-    TemplateResponse toResponse(TemplateRequest templateRequest);
-    TemplateResponse toResponse(Template template);
     TemplateResponse toResponse(TemplateEntity templateEntity);
 
     TemplateEntity toEntity(Template template);

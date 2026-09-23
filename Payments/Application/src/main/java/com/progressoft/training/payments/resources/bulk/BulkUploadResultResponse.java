@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 public class BulkUploadResultResponse {
-    int createdCount;
-    int errorCount;
-    List<PaymentResponse> createdPayments;
-    List<BulkError> errorsPerRow;
+   private int createdCount;
+    private int errorCount;
+    private List<PaymentResponse> createdPayments;
+    private List<BulkError> errorsPerRow;
 
 }

@@ -14,15 +14,11 @@ import java.util.Optional;
 
 @Service
 public class PaymentService {
-
-    private final PaymentMapper paymentMapper;
-
     private  final PaymentRepository paymentRepository;
     private final CreatePaymentUseCase createPaymentUseCase;
     private final UploadBulkPaymentUseCase uploadBulkPaymentUseCase;
 
-    public PaymentService(PaymentMapper paymentMapper, PaymentRepository paymentRepository, CreatePaymentUseCase createPaymentUseCase, UploadBulkPaymentUseCase uploadBulkPaymentUseCase) {
-        this.paymentMapper = paymentMapper;
+    public PaymentService( PaymentRepository paymentRepository, CreatePaymentUseCase createPaymentUseCase, UploadBulkPaymentUseCase uploadBulkPaymentUseCase) {
         this.paymentRepository = paymentRepository;
         this.createPaymentUseCase = createPaymentUseCase;
         this.uploadBulkPaymentUseCase = uploadBulkPaymentUseCase;

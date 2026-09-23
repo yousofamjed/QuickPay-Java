@@ -20,14 +20,8 @@ public class CurrencyValidation implements Validator<Payment>{
             violations.add(new Violation("currency is null", "currency"));
         } else if (!defaultCurrencies.isEmpty() && !defaultCurrencies.contains(payment.getCurrency())) {
             violations.add(new Violation("invalid currency", "currency"));
-        } else {
-            if (payment.getCurrency().isBlank() || payment.getCurrency().isEmpty()) {
-                violations.add(new Violation("currency is blank", "currency"));
-            }
-            if (!payment.getCurrency().matches("^[A-Z]{3}$")) {
-                violations.add(new Violation("currency does not match the role of three uppercase letters", "currency"));
-            }
         }
+
         return violations;
     }
 }
