@@ -1,13 +1,18 @@
 package com.progressoft.training.payments.controller;
 
 import com.progressoft.training.fileparser.domain.Template;
+import com.progressoft.training.models.Payment;
+import com.progressoft.training.payments.entity.TemplateEntity;
 import com.progressoft.training.payments.mapper.TemplateMapper;
+import com.progressoft.training.payments.resources.payment.PaymentResponse;
 import com.progressoft.training.payments.resources.template.TemplateRequest;
 import com.progressoft.training.payments.resources.template.TemplateResponse;
 import com.progressoft.training.payments.service.TemplateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/template")
@@ -36,6 +41,17 @@ public class TemplateController
     public ResponseEntity<TemplateResponse> getByName(@PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
     }
+
+//
+//    @GetMapping
+//    public ResponseEntity<Collection<TemplateResponse>> getAll(){
+//
+//        Collection<TemplateEntity> allTemplateEntities =  service.findAllTemplates();
+//
+//        Collection<TemplateRequest> allResponses = allTemplateEntities.stream().map(TemplateMapper::toResponse).toList();
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(allResponses);
+//    }
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> delete(@PathVariable String name) {
