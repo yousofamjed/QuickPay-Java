@@ -8,7 +8,7 @@
     <property name="char" value="255"/>
 
     <changeSet id="TemplateCreation01" author="Yousof Alkarameh">
-        <createTable tableName="Templates">
+        <createTable tableName="templates">
             <column name="id"  autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -17,7 +17,7 @@
             </column>
         </createTable>
         <rollback>
-            <dropTable tableName="Templates"/>
+            <dropTable tableName="templates"/>
         </rollback>
     </changeSet>
 
@@ -36,7 +36,7 @@
     <changeSet id="TemplateCreation02" author="Yousof Alkarameh">
         <createTable tableName="template_fields">
         <column name="template_id" type="BIGINT">
-            <constraints nullable="false" foreignKeyName="fk_template_fields_template_id" references = "Templates(id)"/>
+            <constraints nullable="false"/>
         </column>
             <column name="field_order" type= "INT">
                 <constraints nullable="false" />
@@ -57,6 +57,13 @@
             <dropTable tableName="template_fields"/>
         </rollback>
 
+    </changeSet>
+
+
+    <changeSet id="1790156330527-1" author="Yousof Alkarameh">
+        <addForeignKeyConstraint baseTableName="template_fields" baseColumnNames="template_id" constraintName="temp_fk"
+                                 referencedTableName="templates"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
 </databaseChangeLog>
