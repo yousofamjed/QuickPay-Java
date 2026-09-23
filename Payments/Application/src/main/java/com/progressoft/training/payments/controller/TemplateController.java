@@ -42,16 +42,18 @@ public class TemplateController
         return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
     }
 
-//
-//    @GetMapping
-//    public ResponseEntity<Collection<TemplateResponse>> getAll(){
-//
-//        Collection<TemplateEntity> allTemplateEntities =  service.findAllTemplates();
-//
-//        Collection<TemplateRequest> allResponses = allTemplateEntities.stream().map(TemplateMapper::toResponse).toList();
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(allResponses);
-//    }
+
+    @GetMapping
+    public ResponseEntity<Collection<TemplateResponse>> getAll(){
+
+        Collection<Template> allTemplates =  service.findAllTemplates();
+
+        Collection<TemplateEntity> allTemplateEntities = allTemplates.stream().map(e-> mapper.toEntity(e)).toList();
+
+        Collection<TemplateResponse> allResponses = allTemplateEntities.stream().map(e-> mapper.toResponse(e)).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(allResponses);
+    }
 
     @DeleteMapping("/{name}")
     public ResponseEntity<Void> delete(@PathVariable String name) {
