@@ -5,12 +5,14 @@ import com.progressoft.training.fileparser.exception.TemplateNotFoundException;
 import com.progressoft.training.fileparser.usecase.CreateTemplateUseCase;
 import com.progressoft.training.fileparser.usecase.DeleteTemplateUseCase;
 import com.progressoft.training.fileparser.usecase.UpdateTemplateUseCase;
+import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.entity.TemplateEntity;
 import com.progressoft.training.payments.mapper.TemplateMapper;
 import com.progressoft.training.payments.repository.TemplateRepositoryImpl;
 import com.progressoft.training.payments.resources.template.TemplateResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -46,6 +48,9 @@ public class TemplateService {
         return toResponse(templateRepository.findEntityByName(name), name);
     }
 
+    public Collection<Template> findAllTemplates(){
+        return templateRepository.findAll().stream().toList();
+    }
     public TemplateResponse update(Template template) {
         updateTemplateUseCase.execute(template);
         return toResponse(templateRepository.findEntityByName(template.name()), template.name());
@@ -58,4 +63,5 @@ public class TemplateService {
     private TemplateResponse toResponse(Optional<TemplateEntity> entity, String name) {
         return templateMapper.toResponse(entity.orElseThrow(() -> new TemplateNotFoundException(name)));
     }
+
 }

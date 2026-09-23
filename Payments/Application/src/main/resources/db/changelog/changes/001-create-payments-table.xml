@@ -8,7 +8,7 @@
     <property name="char" value ="255"/>
 
 <changeSet id="001-create-payments-table" author ="Yousof">
-    <createTable tableName= "Payment">
+    <createTable tableName= "payments">
         <column name ="id" type="BIGINT" autoIncrement = "true">
             <constraints primaryKey="true" nullable="false"/>
         </column>
@@ -23,7 +23,7 @@
     </createTable>
 
     <rollback>
-        <dropTable tableName="Payment"/>
+        <dropTable tableName="payments"/>
     </rollback>
 </changeSet>
 

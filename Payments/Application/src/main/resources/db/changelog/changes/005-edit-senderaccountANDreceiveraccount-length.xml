@@ -6,11 +6,11 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <changeSet id="005-edit-senderaccount-length" author="Yousof" context="contract">
-        <modifyDataType tableName="Payment" columnName="sender_account" newDataType="VARCHAR(34)"/>
+        <modifyDataType tableName="payments" columnName="sender_account" newDataType="VARCHAR(34)"/>
     </changeSet>
 
     <changeSet id="005-edit-receiver-length" author="Yousof" context="contract">
-        <modifyDataType tableName="Payment" columnName="receiver_account" newDataType="VARCHAR(34)"/>
+        <modifyDataType tableName="payments" columnName="receiver_account" newDataType="VARCHAR(34)"/>
     </changeSet>
 
 </databaseChangeLog>

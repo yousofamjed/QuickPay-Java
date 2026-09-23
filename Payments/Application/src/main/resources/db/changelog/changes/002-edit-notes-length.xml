@@ -6,7 +6,7 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
         <changeSet id="002-edit-notes-length" author="Yousof" context="contract">
-        <modifyDataType tableName="Payment" columnName="notes" newDataType="VARCHAR(500)"/>
+        <modifyDataType tableName="payments" columnName="notes" newDataType="VARCHAR(500)"/>
     </changeSet>
 
 </databaseChangeLog>

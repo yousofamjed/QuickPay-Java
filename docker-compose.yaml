@@ -17,7 +17,7 @@ services:
 
   app:
     build:
-      context: /home/yousofalkarameh/Downloads/quickpay-app.tar
+      context: Payments/Application
     ports:
       - "8080:8080"
     environment:
@@ -27,7 +27,6 @@ services:
       DB_NAME: paymentsdb
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
-      PAYMENTS_NOTES_MAX_LENGTH: 10
     depends_on:
       db:
         condition: service_healthy
