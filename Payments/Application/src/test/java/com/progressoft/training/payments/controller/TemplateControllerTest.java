@@ -1,21 +1,29 @@
 package com.progressoft.training.payments.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.progressoft.training.exception.SystemViolationException;
 import com.progressoft.training.fileparser.domain.FieldDefinition;
 import com.progressoft.training.fileparser.domain.Template;
+import com.progressoft.training.payments.mapper.PaymentMapperImpl;
 import com.progressoft.training.payments.mapper.TemplateMapper;
+import com.progressoft.training.payments.mapper.TemplateMapperImpl;
 import com.progressoft.training.payments.resources.template.TemplateFieldRequest;
 import com.progressoft.training.payments.resources.template.TemplateFieldResponse;
 import com.progressoft.training.payments.resources.template.TemplateRequest;
 import com.progressoft.training.payments.resources.template.TemplateResponse;
+import com.progressoft.training.payments.security.SecurityConfig;
 import com.progressoft.training.payments.service.TemplateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.context.annotation.Import;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +34,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TemplateController.class)
+@Import({TemplateMapperImpl.class, SecurityConfig.class})
+@WithMockUser(roles = "TEMPLATES")
 class TemplateControllerTest {
 
     @Autowired
