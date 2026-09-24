@@ -1,17 +1,22 @@
 package com.progressoft.training.payments.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.progressoft.training.exception.SystemViolationException;
 import com.progressoft.training.models.Payment;
 import com.progressoft.training.payments.mapper.PaymentMapper;
+import com.progressoft.training.payments.mapper.PaymentMapperImpl;
 import com.progressoft.training.payments.resources.payment.PaymentRequest;
 import com.progressoft.training.payments.resources.payment.PaymentResponse;
+import com.progressoft.training.payments.security.SecurityConfig;
 import com.progressoft.training.payments.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,7 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @WebMvcTest(PaymentController.class)
+@Import({PaymentMapperImpl.class, SecurityConfig.class})
+@WithMockUser(roles = "PAYMENTS")
 class PaymentControllerTest {
 
     @Autowired
@@ -59,7 +67,7 @@ class PaymentControllerTest {
     }
 
     @Test
-    void givenPayment_whenCreate_returnCOrrectStatus() throws Exception {
+    void givenPayment_whenCreate_returnCorrectStatus() throws Exception {
 
         when(paymentMapper.toDomain(any(PaymentRequest.class))).thenReturn(payment);
         when(paymentService.save(payment)).thenReturn(payment);
