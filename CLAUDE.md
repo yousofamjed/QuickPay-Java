@@ -17,6 +17,7 @@ Payment-initiation backend (ProgressSoft training). Users create single payments
 - `payments/application` — Spring Boot 4.1 / Java 25 / Jackson 3: `controller/`, `service/`, `repository/` (JPA adapters + Specifications), `mapper/` (MapStruct; trims strings, blank→null, amount scaled to 2dp), `config/` (bean wiring, validators), `security/SecurityConfig`, `exception/GlobalExceptionHandler`, Liquibase in `resources/db/changelog`.
 - External lib `com.progressoft.training:file-parser-core` (source: `~/Java Projects/file-parser/file-parser-core`): `Template`/`FieldDefinition`, CSV/TXT parsers, row rules, template CRUD use cases, `FileParserException` hierarchy.
 - `samples/` request bodies + bulk files; `postman/` collection.
+- `frontend/` (planned) — Angular app. Conventions in `docs/angular-conventions.md`, enforced by skill `.claude/skills/angular-conventions/`.
 
 ## Commands
 - Tests: `mvn -q test` (root) · one module: `mvn -q -pl payments/domain test` · one class: `mvn -q -pl payments/application test -Dtest=PaymentServiceTest`
