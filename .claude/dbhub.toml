@@ -1,0 +1,10 @@
+# Local dev database (credentials from docker-compose.yml). Read-only, capped results.
+[[sources]]
+id = "default"
+dsn = "postgres://postgres:postgres@localhost:5432/paymentsdb?sslmode=disable"
+
+[[tools]]
+name = "execute_sql"
+source = "default"
+readonly = true
+max_rows = 100
